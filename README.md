@@ -94,7 +94,7 @@ link-prevue have the following props for customize the component
 **url**               | _String_   | yes      | _undefined_    | Site url for generate link preview
 **onButtonClick**     | _Function_ | no       | _undefined_    | Function for a custom button handler, params => `prevue`
 **cardWidth**         | _String_   | no       | _'400px'_      | Card width
-**showButton**        | _String_   | no       | _true_         | Render card button
+**showButton**        | _Boolean_  | no       | _true_         | Render card button
 
 
 ## API REST
