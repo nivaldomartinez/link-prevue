@@ -1,15 +1,16 @@
 <template>
   <div>
-    <link-prevue></link-prevue>
+    <link-prevue url="https://www.heroku.com"></link-prevue>
   </div>
 </template>
 
 <script type="text/javascript">
-import LinkPrevue from '../dist/link-prevue.min'
 
-module.exports = {
-  install: function (Vue, options) {
-    Vue.component('link-prevue', LinkPrevue);
+import LinkPrevue from '../src/index.js'
+
+export default {
+  components: {
+    LinkPrevue
   }
-};
+}
 </script>

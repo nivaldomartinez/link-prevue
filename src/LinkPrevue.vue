@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="loader-container" v-if="!response && validUrl">
+    <div class="loader-container" v-if="!response && validUrl" :style="{width:cardWidth}">
       <div id="loader">
         <ul>
           <li></li>
@@ -13,10 +13,10 @@
       </div>
     </div>
     <div v-if="response">
-      <slot :img="response.images[3]" :title="response.title" :description="response.description" :url="url">
-      	<div class="wrapper">
+      <slot :img="response.images[0]" :title="response.title" :description="response.description" :url="url">
+      	<div class="wrapper" :style="{width:cardWidth}">
             <div class="card-img">
-          		<img :src="response.images[3]">
+          		<img :src="response.images[0]">
         		</div>
         		<div class="card-info">
           		<div class="card-text">
@@ -24,7 +24,7 @@
             		<p>{{response.description}}</p>
           		</div>
           		<div class="card-btn">
-            		<a :href="url" target="_blank">View More</a>
+            		<a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
           		</div>
         		</div>
       	</div>
@@ -40,6 +40,18 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+    cardWidth: {
+      type: String,
+      default: '400px'
+    },
+    onButtonClick: {
+      type: Function,
+      default: undefined
+    },
+    showButton: {
+      type: Boolean,
+      default: true
     }
   },
   watch: {
@@ -58,6 +70,14 @@ export default {
     }
   },
   methods: {
+    viewMore: function() {
+      if (this.onButtonClick !== undefined) {
+        this.onButtonClick(this.response)
+      } else {
+        const win = window.open(this.url, '_blank')
+        win.focus()
+      }
+    },
     isValidUrl: function(url) {
       const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
       this.validUrl = regex.test(url)
@@ -66,7 +86,7 @@ export default {
     getLinkPreview: function() {
       if (this.isValidUrl(this.url)) {
         this.httpRequest((response) => {
-          this.response = JSON.parse(response)[0]
+          this.response = JSON.parse(response)
         }, () => {
           this.response = null
           this.validUrl = false
@@ -75,7 +95,7 @@ export default {
     },
     httpRequest: function(success, error) {
       const http = new XMLHttpRequest()
-      const APIUrl = 'https://warm-mesa-33917.herokuapp.com/api/linkpreview'
+      const APIUrl = 'http://linkpreview-api.herokuapp.com/'
       const params = 'url=' + this.url
       http.open('POST', APIUrl, true)
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
@@ -98,7 +118,6 @@ export default {
 
 .wrapper {
   overflow: auto;
-  width: 400px;
   border-radius: 7px 7px 7px 7px;
   background-color: #fff;
   -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
@@ -134,7 +153,7 @@ img {
 
 .card-text h1 {
   text-align: center;
-  font-size: 34px;
+  font-size: 24px;
   color: #474747;
   margin: 5px 0 5px 0;
   font-family: 'Hind Siliguri', sans-serif;
@@ -146,6 +165,7 @@ img {
   font-size: 15px;
   overflow: hidden;
   margin: 0;
+  text-align: center;
 }
 
 .card-btn {
@@ -179,7 +199,6 @@ img {
 /* Loader */
 .loader-container {
   overflow: auto;
-  width: 400px;
 }
 
 #loader {
