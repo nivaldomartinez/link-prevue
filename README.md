@@ -19,17 +19,17 @@ npm install link-prevue
 import LinkPrevue from 'link-prevue'
 
 new Vue({
-	el: '#app',
-    components: {
-    	LinkPrevue
-    }
+  el: '#app',
+  components: {
+    LinkPrevue
+  }
 })
 ```
 > HTML
 
 ```html
 <div id="app">
-	<link-prevue url="https://vuejs.org/"></link-prevue>
+  <link-prevue url="https://vuejs.org/"></link-prevue>
 </div>
 ```
 
@@ -41,7 +41,7 @@ To use a custom card, set your own html code between the aperture tag and the cl
 
 ```html
 <div id="app">
-	<link-prevue url="https://vuejs.org/" slot-scope="props">
+  <link-prevue url="https://vuejs.org/" slot-scope="props">
     <template slot-scope="props">
       <div class="card" style="width: 20rem;">
             <img class="card-img-top" :src="props.image" :alt="props.title">
@@ -63,7 +63,7 @@ For custom button handler use the onButtonClick property, like.
 
 ```html
 <div id="app">
-	<link-prevue url="https://vuejs.org/" :onButtonClick="onClick"></link-prevue>
+  <link-prevue url="https://vuejs.org/" :onButtonClick="onClick"></link-prevue>
 </div>
 
 ```
@@ -71,7 +71,7 @@ For custom button handler use the onButtonClick property, like.
 > Javascript
 
 ```javascript
-import LinkPrevue from '../src/index.js'
+import LinkPrevue from 'link-prevue'
 
 export default {
   components:{
