@@ -95,7 +95,7 @@ export default {
     },
     httpRequest: function(success, error) {
       const http = new XMLHttpRequest()
-      const APIUrl = 'http://linkpreview-api.herokuapp.com/'
+      const APIUrl = 'https://linkpreview-api.herokuapp.com/'
       const params = 'url=' + this.url
       http.open('POST', APIUrl, true)
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
