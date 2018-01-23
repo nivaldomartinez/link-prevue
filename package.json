@@ -3,6 +3,8 @@
   "version": "1.1.1",
   "description": "Vue component for generate a link preview",
   "main": "./dist/link-prevue.min.js",
+  "unpkg": "./dist/link-prevue.min.js",
+  "jsdelivr": "./dist/link-prevue.min.js"
   "scripts": {
     "lint": "eslint src --ext=js,vue || exit 0",
     "dev": "webpack-dev-server --content-base ./dev --env=webpack.dev --open --hot",
