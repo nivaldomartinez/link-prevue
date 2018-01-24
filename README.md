@@ -1,3 +1,11 @@
+<p align="center">
+  <br>
+  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue">
+  <br>
+  <br>
+  <br>
+</p>
+
 ## link-prevue
 
 > A flexible component for generate a link preview
@@ -44,13 +52,13 @@ To use a custom card, set your own html code between the aperture tag and the cl
   <link-prevue url="https://vuejs.org/" slot-scope="props">
     <template slot-scope="props">
       <div class="card" style="width: 20rem;">
-            <img class="card-img-top" :src="props.image" :alt="props.title">
-            <div class="card-block">
-                <h4 class="card-title">{{props.title}}</h4>
-                <p class="card-text">{{props.description}}</p>
-                <a v-bind:href="props.url" class="btn btn-primary">More</a>
-            </div>
+        <img class="card-img-top" :src="props.image" :alt="props.title">
+        <div class="card-block">
+          <h4 class="card-title">{{props.title}}</h4>
+          <p class="card-text">{{props.description}}</p>
+          <a v-bind:href="props.url" class="btn btn-primary">More</a>
         </div>
+      </div>
     </template>
   </link-prevue>
 </div>
@@ -89,12 +97,13 @@ export default {
 
 link-prevue have the following props for customize the component
 
- Prop                 | Type       | Required | Default Value  | Description
---------------------- | ---------- | -------- | -------------  | -----------
-**url**               | _String_   | yes      | _undefined_    | Site url for generate link preview
-**onButtonClick**     | _Function_ | no       | _undefined_    | Function for a custom button handler, params => `prevue`
-**cardWidth**         | _String_   | no       | _'400px'_      | Card width
-**showButton**        | _Boolean_  | no       | _true_         | Render card button
+ Prop                 | Type       | Required | Default Value                            | Description
+--------------------- | ---------- | -------- | ---------------------------------------- | -----------
+**url**               | _String_   | yes      | _undefined_                              | Site url for generate link preview
+**onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
+**cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
+**showButton**        | _Boolean_  | no       | _true_                                   | Render card button
+**apiUrl**            | _String_   | no       | _https://linkpreview-api.herokuapp.com/_ | Custom API url [check this](https://github.com/nivaldomartinez/link-preview-api)
 
 
 ## API REST

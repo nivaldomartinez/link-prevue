@@ -1,16 +1,7 @@
 <template>
   <div>
     <div class="loader-container" v-if="!response && validUrl" :style="{width:cardWidth}">
-      <div id="loader">
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
+      <div class="spinner"></div>
     </div>
     <div v-if="response">
       <slot :img="response.images[0]" :title="response.title" :description="response.description" :url="url">
@@ -52,6 +43,10 @@ export default {
     showButton: {
       type: Boolean,
       default: true
+    },
+    apiUrl: {
+      type: String,
+      default: 'https://linkpreview-api.herokuapp.com/'
     }
   },
   watch: {
@@ -95,9 +90,8 @@ export default {
     },
     httpRequest: function(success, error) {
       const http = new XMLHttpRequest()
-      const APIUrl = 'https://linkpreview-api.herokuapp.com/'
       const params = 'url=' + this.url
-      http.open('POST', APIUrl, true)
+      http.open('POST', this.apiUrl, true)
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
       http.onreadystatechange = function() {
     		if (http.readyState === 4 && http.status === 200) {
@@ -201,69 +195,19 @@ img {
   overflow: auto;
 }
 
-#loader {
-  height: 100px;
-  width: 100%;
+.spinner {
+  margin-top: 50%;
+  margin-left: 50%;
+  height: 28px;
+  width: 28px;
+  animation: rotate 0.8s infinite linear;
+  border: 5px solid #868686;
+  border-right-color: transparent;
+  border-radius: 50%;
 }
-#loader ul {
-  margin: 0 auto;
-  list-style: none;
-  width: 90px;
-  position: relative;
-  padding: 0;
-  height: 100%;
-}
-#loader ul li {
-  position: absolute;
-  width: 2px;
-  height: 0;
-  background-color: #000;
-  bottom: 0;
-}
-@keyframes sequence1 {
-  0% {
-    height: 10px;
-  }
-  50% {
-    height: 50px;
-  }
-  100% {
-    height: 10px;
-  }
-}
-@keyframes sequence2 {
-  0% {
-    height: 20px;
-  }
-  50% {
-    height: 65px;
-  }
-  100% {
-    height: 20px;
-  }
-}
-#loader li:nth-child(1) {
-  left: 0;
-  animation: sequence1 1s ease infinite 0;
-}
-#loader li:nth-child(2) {
-  left: 15px;
-  animation: sequence2 1s ease infinite 0.1s;
-}
-#loader li:nth-child(3) {
-  left: 30px;
-  animation: sequence1 1s ease-in-out infinite 0.2s;
-}
-#loader li:nth-child(4) {
-  left: 45px;
-  animation: sequence2 1s ease-in infinite 0.3s;
-}
-#loader li:nth-child(5) {
-  left: 60px;
-  animation: sequence1 1s ease-in-out infinite 0.4s;
-}
-#loader li:nth-child(6) {
-  left: 75px;
-  animation: sequence2 1s ease infinite 0.5s;
+
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
 }
 </style>
