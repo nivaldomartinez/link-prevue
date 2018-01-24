@@ -1,9 +1,5 @@
 <p align="center">
-  <br>
-  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue">
-  <br>
-  <br>
-  <br>
+  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="300">
 </p>
 
 ## link-prevue
