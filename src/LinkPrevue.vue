@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="loader-container" v-if="!response && validUrl" :style="{width:cardWidth}">
-      <div class="spinner"></div>
+    <div id="loader-container" v-if="!response && validUrl" :style="{width:cardWidth}">
+      <slot name="loading">
+        <div class="spinner"></div>
+      </slot>
     </div>
     <div v-if="response">
       <slot :img="response.images[0]" :title="response.title" :description="response.description" :url="url">
@@ -131,7 +133,6 @@ export default {
 img {
   vertical-align: middle;
   border-style: none;
-  background-color: #fdf1ec;
 }
 
 .card-info {
@@ -191,13 +192,9 @@ img {
 }
 
 /* Loader */
-.loader-container {
-  overflow: auto;
-}
-
 .spinner {
-  margin-top: 50%;
-  margin-left: 50%;
+  margin-top: 40%;
+  margin-left: 45%;
   height: 28px;
   width: 28px;
   animation: rotate 0.8s infinite linear;

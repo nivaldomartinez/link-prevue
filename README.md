@@ -45,7 +45,7 @@ To use a custom card, set your own html code between the aperture tag and the cl
 
 ```html
 <div id="app">
-  <link-prevue url="https://vuejs.org/" slot-scope="props">
+  <link-prevue url="https://vuejs.org/">
     <template slot-scope="props">
       <div class="card" style="width: 20rem;">
         <img class="card-img-top" :src="props.image" :alt="props.title">
@@ -59,6 +59,22 @@ To use a custom card, set your own html code between the aperture tag and the cl
   </link-prevue>
 </div>
 ```
+
+## Custom loading indicator
+
+To use a custom loading indicator, use the loading slot.
+
+```html
+<div id="app">
+  <link-prevue url="https://vuejs.org/">
+    <template slot="loading">
+      <!-- set your custom loading -->
+      <h1>Loading...</h1>
+    </template>
+  </link-prevue>
+</div>
+```
+
 ## Custom button handler
 
 For custom button handler use the onButtonClick property, like.
