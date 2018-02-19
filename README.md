@@ -7,7 +7,7 @@
 > A flexible component for generating a link preview
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/cover.png" alt="Link Prevue" width="300">
+  <img src="https://raw.githubusercontent.com/CSFlorin/link-prevue/master/cover.png" alt="Link Prevue" width="300">
 </p>
 
 [Live Demo](https://link-prevue.herokuapp.com/).
