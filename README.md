@@ -128,3 +128,9 @@ link-prevue use an API REST for retrieve link data if you want to use your own A
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](https://opensource.org/licenses/MIT).
+
+## Donate
+
+<img src="http://pngimg.com/uploads/bitcoin/bitcoin_PNG48.png" alt="Link Prevue" width="100">
+
+***Address:*** 19foqjGE4bL7SXZLA4eVmJZQ1gFztmAscL
