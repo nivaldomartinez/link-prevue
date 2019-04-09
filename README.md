@@ -15,6 +15,7 @@
 [Demo repository](https://github.com/nivaldomartinez/link-prevue-demo).
 
 ## Intallation
+
 ```
 npm install link-prevue
 ```
@@ -24,15 +25,16 @@ npm install link-prevue
 > Javascript
 
 ```javascript
-import LinkPrevue from 'link-prevue'
+import LinkPrevue from "link-prevue";
 
 new Vue({
-  el: '#app',
+  el: "#app",
   components: {
     LinkPrevue
   }
-})
+});
 ```
+
 > HTML
 
 ```html
@@ -52,7 +54,7 @@ To use a custom card, set your own html code between the aperture tag and the cl
   <link-prevue url="https://vuejs.org/">
     <template slot-scope="props">
       <div class="card" style="width: 20rem;">
-        <img class="card-img-top" :src="props.img" :alt="props.title">
+        <img class="card-img-top" :src="props.img" :alt="props.title" />
         <div class="card-block">
           <h4 class="card-title">{{props.title}}</h4>
           <p class="card-text">{{props.description}}</p>
@@ -79,6 +81,19 @@ To use a custom loading indicator, use the loading slot.
 </div>
 ```
 
+## Custom error message
+
+```html
+<div id="app">
+  <link-prevue url="https://vuejs.org/">
+    <template slot="error">
+      <!-- set your custom error -->
+      <h1>Error message</h1>
+    </template>
+  </link-prevue>
+</div>
+```
+
 ## Custom button handler
 
 For custom button handler use the onButtonClick property, like.
@@ -89,42 +104,47 @@ For custom button handler use the onButtonClick property, like.
 <div id="app">
   <link-prevue url="https://vuejs.org/" :onButtonClick="onClick"></link-prevue>
 </div>
-
 ```
 
 > Javascript
 
 ```javascript
-import LinkPrevue from 'link-prevue'
+import LinkPrevue from "link-prevue";
 
 export default {
-  components:{
+  components: {
     LinkPrevue
   },
   methods: {
     onClick(prevue) {
-      console.log('click', prevue.images, prevue.title, prevue.url, prevue.description)
+      console.log(
+        "click",
+        prevue.images,
+        prevue.title,
+        prevue.url,
+        prevue.description
+      );
     }
   }
-}
+};
 ```
 
 ## Props API
 
 link-prevue have the following props for customize the component
 
- Prop                 | Type       | Required | Default Value                            | Description
---------------------- | ---------- | -------- | ---------------------------------------- | -----------
-**url**               | _String_   | yes      | _undefined_                              | Site url for generate link preview
-**onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
-**cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
-**showButton**        | _Boolean_  | no       | _true_                                   | Render card button
-**apiUrl**            | _String_   | no       | _https://linkpreview-api.herokuapp.com/_ | Custom API url [check this](https://github.com/nivaldomartinez/link-preview-api)
-
+| Prop              | Type       | Required | Default Value                            | Description                                                                      |
+| ----------------- | ---------- | -------- | ---------------------------------------- | -------------------------------------------------------------------------------- |
+| **url**           | _String_   | yes      | _undefined_                              | Site url for generate link preview                                               |
+| **onButtonClick** | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`                         |
+| **cardWidth**     | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`                                                  |
+| **showButton**    | _Boolean_  | no       | _true_                                   | Render card button                                                               |
+| **apiUrl**        | _String_   | no       | _https://linkpreview-api.herokuapp.com/_ | Custom API url [check this](https://github.com/nivaldomartinez/link-preview-api) |
 
 ## API REST
 
 link-prevue use an API REST for retrieve link data if you want to use your own API REST check [this](https://github.com/nivaldomartinez/link-preview-api).
+
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](https://opensource.org/licenses/MIT).
@@ -133,4 +153,4 @@ This code is distributed under the terms and conditions of the [MIT license](htt
 
 <img src="http://pngimg.com/uploads/bitcoin/bitcoin_PNG48.png" alt="Link Prevue" width="100">
 
-***Address:*** 19foqjGE4bL7SXZLA4eVmJZQ1gFztmAscL
+**_Address:_** 19foqjGE4bL7SXZLA4eVmJZQ1gFztmAscL
