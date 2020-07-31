@@ -5,12 +5,11 @@
 </template>
 
 <script type="text/javascript">
-
-import LinkPrevue from '../src/index.js'
+import LinkPrevue from "../src/index.js";
 
 export default {
   components: {
-    LinkPrevue
-  }
-}
+    LinkPrevue,
+  },
+};
 </script>

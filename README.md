@@ -52,7 +52,7 @@ To use a custom card, set your own html code between the aperture tag and the cl
   <link-prevue url="https://vuejs.org/">
     <template slot-scope="props">
       <div class="card" style="width: 20rem;">
-        <img class="card-img-top" :src="props.img" :alt="props.title">
+        <img class="card-img-top" :src="props.img" :alt="props.title" />
         <div class="card-block">
           <h4 class="card-title">{{props.title}}</h4>
           <p class="card-text">{{props.description}}</p>
@@ -119,7 +119,7 @@ link-prevue have the following props for customize the component
 **onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
 **cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
-**apiUrl**            | _String_   | no       | _https://linkpreview-api.herokuapp.com/_ | Custom API url [check this](https://github.com/nivaldomartinez/link-preview-api)
+**apiUrl**            | _String_   | no       | _https://link-prevue-api-v2.herokuapp.com/preview/_ | Custom API url [check this](https://github.com/nivaldomartinez/link-preview-api)
 
 
 ## API REST
@@ -131,6 +131,6 @@ This code is distributed under the terms and conditions of the [MIT license](htt
 
 ## Donate
 
-<img src="http://pngimg.com/uploads/bitcoin/bitcoin_PNG48.png" alt="Link Prevue" width="100">
+<img src="https://miro.medium.com/max/1200/1*RDfyazFplV7e1eSNETrw8w.png" alt="Link Prevue" width="100">
 
-***Address:*** 19foqjGE4bL7SXZLA4eVmJZQ1gFztmAscL
+***Address:*** 0xd0177a8D356A757Cb65E64222bD41132fC6ee571

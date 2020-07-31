@@ -6,111 +6,122 @@
       </slot>
     </div>
     <div v-if="response">
-      <slot :img="response.images[0]" :title="response.title" :description="response.description" :url="url">
-      	<div class="wrapper" :style="{width:cardWidth}">
-            <div class="card-img">
-          		<img :src="response.images[0]">
-        		</div>
-        		<div class="card-info">
-          		<div class="card-text">
-            		<h1>{{response.title}}</h1>
-            		<p>{{response.description}}</p>
-          		</div>
-          		<div class="card-btn">
-            		<a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
-          		</div>
-        		</div>
-      	</div>
-    	</slot>
-  	</div>
+      <slot
+        :img="response.image"
+        :title="response.title"
+        :description="response.description"
+        :url="url"
+      >
+        <div class="wrapper" :style="{width:cardWidth}">
+          <div class="card-img">
+            <img :src="response.image" />
+          </div>
+          <div class="card-info">
+            <div class="card-text">
+              <h1>{{response.title}}</h1>
+              <p>{{response.description}}</p>
+            </div>
+            <div class="card-btn">
+              <a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
+            </div>
+          </div>
+        </div>
+      </slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'link-prevue',
+  name: "link-prevue",
   props: {
     url: {
       type: String,
-      default: ''
+      default: "",
     },
     cardWidth: {
       type: String,
-      default: '400px'
+      default: "400px",
     },
     onButtonClick: {
       type: Function,
-      default: undefined
+      default: undefined,
     },
     showButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     apiUrl: {
       type: String,
-      default: 'https://linkpreview-api.herokuapp.com/'
-    }
+      default: "https://link-prevue-api-v2.herokuapp.com/preview/",
+    },
   },
   watch: {
-    url: function(value) {
-      this.response = null
-      this.getLinkPreview()
-    }
+    url: function () {
+      this.response = null;
+      this.getLinkPreview();
+    },
   },
   created() {
-    this.getLinkPreview()
+    this.getLinkPreview();
   },
-  data: function() {
+  data: function () {
     return {
       response: null,
-      validUrl: false
-    }
+      validUrl: false,
+    };
   },
   methods: {
-    viewMore: function() {
+    viewMore: function () {
       if (this.onButtonClick !== undefined) {
-        this.onButtonClick(this.response)
+        this.onButtonClick(this.response);
       } else {
-        const win = window.open(this.url, '_blank')
-        win.focus()
+        const win = window.open(this.url, "_blank");
+        win.focus();
       }
     },
-    isValidUrl: function(url) {
-      const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
-      this.validUrl = regex.test(url)
-      return this.validUrl
+    isValidUrl: function (url) {
+      const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
+      this.validUrl = regex.test(url);
+      return this.validUrl;
     },
-    getLinkPreview: function() {
+    getLinkPreview: function () {
       if (this.isValidUrl(this.url)) {
-        this.httpRequest((response) => {
-          this.response = JSON.parse(response)
-        }, () => {
-          this.response = null
-          this.validUrl = false
-        })
+        this.httpRequest(
+          (response) => {
+            this.response = JSON.parse(response);
+          },
+          () => {
+            this.response = null;
+            this.validUrl = false;
+          }
+        );
       }
     },
-    httpRequest: function(success, error) {
-      const http = new XMLHttpRequest()
-      const params = 'url=' + this.url
-      http.open('POST', this.apiUrl, true)
-      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-      http.onreadystatechange = function() {
-    		if (http.readyState === 4 && http.status === 200) {
-        	   success(http.responseText)
-    		   }
+    httpRequest: function (success, error) {
+      const http = new XMLHttpRequest();
+      const params = "url=" + this.url;
+      http.open("POST", this.apiUrl, true);
+      http.setRequestHeader(
+        "Content-type",
+        "application/x-www-form-urlencoded"
+      );
+      http.onreadystatechange = function () {
+        if (http.readyState === 4 && http.status === 200) {
+          success(http.responseText);
+        }
         if (http.readyState === 4 && http.status === 500) {
-        	   error()
-    		   }
-      }
-      http.send(params)
-    }
-  }
-}
+          error();
+        }
+      };
+      http.send(params);
+    },
+  },
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600');
+@import url("https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600");
 
 .wrapper {
   overflow: auto;
@@ -151,11 +162,11 @@ img {
   font-size: 24px;
   color: #474747;
   margin: 5px 0 5px 0;
-  font-family: 'Hind Siliguri', sans-serif;
+  font-family: "Hind Siliguri", sans-serif;
 }
 
 .card-text p {
-  font-family: 'Hind Siliguri', sans-serif;
+  font-family: "Hind Siliguri", sans-serif;
   color: #8d8d8d;
   font-size: 15px;
   overflow: hidden;
@@ -171,7 +182,7 @@ img {
 
 .card-btn a {
   border-radius: 2em;
-  font-family: 'Hind Siliguri', sans-serif;
+  font-family: "Hind Siliguri", sans-serif;
   font-size: 14px;
   letter-spacing: 0.1em;
   color: #ffffff;
@@ -204,7 +215,11 @@ img {
 }
 
 @keyframes rotate {
-  0%    { transform: rotate(0deg); }
-  100%  { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
