@@ -55,15 +55,19 @@ export default {
       type: String,
       default: "https://link-prevue-api-v2.herokuapp.com/preview/",
     },
+    getLinkPreview: {
+      type: Function,
+      default: undefined,
+    },
   },
   watch: {
     url: function () {
       this.response = null;
-      this.getLinkPreview();
+      this.loadLinkPreview();
     },
   },
   created() {
-    this.getLinkPreview();
+    this.loadLinkPreview();
   },
   data: function () {
     return {
@@ -85,36 +89,45 @@ export default {
       this.validUrl = regex.test(url);
       return this.validUrl;
     },
-    getLinkPreview: function () {
+    loadLinkPreview: function () {
       if (this.isValidUrl(this.url)) {
-        this.httpRequest(
-          (response) => {
-            this.response = JSON.parse(response);
-          },
-          () => {
+        const f =
+          this.getLinkPreview !== undefined
+            ? this.getLinkPreview
+            : this.defaultGetLinkPreview;
+
+        f(this.url)
+          .then((response) => {
+            this.response = response;
+          })
+          .catch(() => {
             this.response = null;
             this.validUrl = false;
-          }
-        );
+          });
       }
     },
-    httpRequest: function (success, error) {
-      const http = new XMLHttpRequest();
-      const params = "url=" + this.url;
-      http.open("POST", this.apiUrl, true);
-      http.setRequestHeader(
-        "Content-type",
-        "application/x-www-form-urlencoded"
-      );
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 200) {
-          success(http.responseText);
-        }
-        if (http.readyState === 4 && http.status === 500) {
-          error();
-        }
-      };
-      http.send(params);
+    defaultGetLinkPreview: function (url) {
+      return this.httpRequest(url).then((response) => JSON.parse(response));
+    },
+    httpRequest: function (url) {
+      return new Promise((resolve, reject) => {
+        const http = new XMLHttpRequest();
+        const params = "url=" + url;
+        http.open("POST", this.apiUrl, true);
+        http.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        http.onreadystatechange = function () {
+          if (http.readyState === 4 && http.status === 200) {
+            resolve(http.responseText);
+          }
+          if (http.readyState === 4 && http.status === 500) {
+            reject();
+          }
+        };
+        http.send(params);
+      });
     },
   },
 };
