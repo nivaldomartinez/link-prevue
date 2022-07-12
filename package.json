@@ -30,15 +30,15 @@
   },
   "homepage": "https://github.com/nivaldomartinez/link-prevue#readme",
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "@babel/eslint-parser": "^7.18.2",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "core-js": "^3.23.4",
+    "eslint": "^8.19.0",
+    "eslint-plugin-vue": "^9.2.0",
+    "vue": "^2.7.4",
+    "vue-template-compiler": "^2.7.4"
   },
   "eslintConfig": {
     "root": true,
@@ -50,7 +50,7 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },
