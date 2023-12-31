@@ -1,9 +1,12 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="300">
+  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="100">
 </p>
 
 > [!WARNING]
 > Repo no longer maintained 🚨🚨🚨
+
+> [!NOTE]
+> Feel free to fork it and publish your own version.
 
 ## link-prevue
 
