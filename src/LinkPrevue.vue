@@ -1,25 +1,20 @@
 <template>
   <div>
-    <div id="loader-container" v-if="!response && validUrl" :style="{width:cardWidth}">
+    <div id="loader-container" v-if="!response && validUrl" :style="{ width: cardWidth }">
       <slot name="loading">
         <div class="spinner"></div>
       </slot>
     </div>
     <div v-if="response">
-      <slot
-        :img="response.image"
-        :title="response.title"
-        :description="response.description"
-        :url="url"
-      >
-        <div class="wrapper" :style="{width:cardWidth}">
+      <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
+        <div class="wrapper" :style="{ width: cardWidth }">
           <div class="card-img">
             <img :src="response.image" />
           </div>
           <div class="card-info">
             <div class="card-text">
-              <h1>{{response.title}}</h1>
-              <p>{{response.description}}</p>
+              <h1>{{ response.title }}</h1>
+              <p>{{ response.description }}</p>
             </div>
             <div class="card-btn">
               <a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
@@ -30,7 +25,7 @@
     </div>
   </div>
 </template>
-
+  
 <script>
 export default {
   name: "link-prevue",
@@ -53,7 +48,7 @@ export default {
     },
     apiUrl: {
       type: String,
-      default: "https://link-prevue-api-v2.herokuapp.com/preview/",
+      default: "https://link-preview-api.nivaldo.workers.dev/preview",
     },
   },
   watch: {
@@ -89,7 +84,7 @@ export default {
       if (this.isValidUrl(this.url)) {
         this.httpRequest(
           (response) => {
-            this.response = JSON.parse(response);
+            this.response = response;
           },
           () => {
             this.response = null;
@@ -99,27 +94,15 @@ export default {
       }
     },
     httpRequest: function (success, error) {
-      const http = new XMLHttpRequest();
-      const params = "url=" + this.url;
-      http.open("POST", this.apiUrl, true);
-      http.setRequestHeader(
-        "Content-type",
-        "application/x-www-form-urlencoded"
-      );
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 200) {
-          success(http.responseText);
-        }
-        if (http.readyState === 4 && http.status === 500) {
-          error();
-        }
-      };
-      http.send(params);
+      fetch(`${this.apiUrl}?url=${this.url}`)
+      .then(response => response.json())
+      .then(linkPreviewData => success(linkPreviewData))
+      .catch(() => error())
     },
   },
 };
 </script>
-
+  
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600");
 
@@ -218,8 +201,10 @@ img {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
 </style>
+  
