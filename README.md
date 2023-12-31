@@ -3,7 +3,7 @@
 </p>
 
 > [!WARNING]
-> This project is no longer maintained
+> Repo no longer maintained 🚨🚨🚨
 
 ## link-prevue
 
