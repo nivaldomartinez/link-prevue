@@ -6,6 +6,7 @@
   "unpkg": "./dist/link-prevue.umd.min.js",
   "jsdelivr": "./dist/link-prevue.umd.min.js",
   "scripts": {
+    "clean": "rm -rf node_modules && rm -rf package-lock.json",
     "serve": "vue-cli-service serve ./dev",
     "build": "vue-cli-service build --target lib --name link-prevue src/index.js",
     "lint": "vue-cli-service lint"
