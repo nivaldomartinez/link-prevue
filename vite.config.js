@@ -13,6 +13,14 @@ export default defineConfig({
       entry: './src/index.js',
       name: 'link-prevue',
       fileName: 'link-prevue',
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'vue'
+        }
+      }
     }
   }
 })

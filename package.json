@@ -1,6 +1,6 @@
 {
   "name": "link-prevue",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Vue component for generate a link preview",
   "main": "./dist/link-prevue.js",
   "unpkg": "./dist/link-prevue.js",
@@ -11,7 +11,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json"
   },
   "repository": {
     "type": "git",
