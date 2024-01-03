@@ -1,18 +1,17 @@
 {
   "name": "link-prevue",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Vue component for generate a link preview",
-  "main": "./dist/link-prevue.umd.min.js",
-  "unpkg": "./dist/link-prevue.umd.min.js",
-  "jsdelivr": "./dist/link-prevue.umd.min.js",
+  "main": "./dist/link-prevue.js",
+  "unpkg": "./dist/link-prevue.js",
+  "jsdelivr": "./dist/link-prevue.js",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve ./dev",
-    "build": "vue-cli-service build --target lib --name link-prevue src/index.js",
-    "lint": "vue-cli-service lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/nivaldomartinez/link-prevue"
+    "dev": "vite ./dev --config ./dev/vite.config.js",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json"
   },
   "files": [
     "dist"
@@ -21,7 +20,8 @@
     "link",
     "prevue",
     "vue",
-    "preview"
+    "preview",
+    "vuejs"
   ],
   "author": "Nivaldo Martinez",
   "license": "MIT",
@@ -29,34 +29,18 @@
     "url": "https://github.com/nivaldomartinez/link-prevue/issues"
   },
   "homepage": "https://github.com/nivaldomartinez/link-prevue#readme",
+  "peerDependencies": {
+    "vue": "^2.7.7"
+  },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@vitejs/plugin-vue2": "^1.1.2",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "prettier": "^2.5.1",
+    "terser": "^5.14.2",
+    "vite": "^3.0.2",
+    "vite-plugin-css-injected-by-js": "^3.3.1"
+  }
 }

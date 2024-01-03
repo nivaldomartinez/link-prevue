@@ -1,15 +1,9 @@
+<script setup>
+import LinkPrevue from "../src/LinkPrevue.vue";
+</script>
+
 <template>
   <div>
-    <link-prevue url="https://www.heroku.com"></link-prevue>
+    <LinkPrevue url="https://www.github.com"></LinkPrevue>
   </div>
 </template>
-
-<script type="text/javascript">
-import LinkPrevue from "../src/index.js";
-
-export default {
-  components: {
-    LinkPrevue,
-  },
-};
-</script>

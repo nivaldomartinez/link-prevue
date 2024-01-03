@@ -1,3 +1,3 @@
-import LinkPrevue from './LinkPrevue.vue'
+import LinkPrevue from "./LinkPrevue.vue";
 
-export default LinkPrevue
+export default LinkPrevue;
