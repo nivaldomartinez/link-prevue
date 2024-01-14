@@ -2,9 +2,6 @@
   <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="100">
 </p>
 
-> [!NOTE]
-> Version 2 is here, suppor for vue 3
-
 ## link-prevue
 
 > A flexible component for generating a link preview
@@ -121,8 +118,8 @@ link-prevue uses an API REST for retrieve link data if you want to use your own 
 
 This code is distributed under the terms and conditions of the [MIT license](https://opensource.org/licenses/MIT).
 
-## Donate
-
-<img src="https://miro.medium.com/max/1200/1*RDfyazFplV7e1eSNETrw8w.png" alt="Link Prevue" width="100">
-
-***Address:*** 0xd0177a8D356A757Cb65E64222bD41132fC6ee571
+## compatibility
+| version | vue |
+|-|-|
+| v2.x | v3.x |
+| v1.x | v2.x |
