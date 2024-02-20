@@ -1,23 +1,23 @@
 <template>
   <div>
-    <div id="loader-container" v-if="!response && validUrl" :style="{ width: cardWidth }">
+    <div v-if="!data && validUrl" id="loader-container" :style="{ width: cardWidth }">
       <slot name="loading">
         <div class="spinner"></div>
       </slot>
     </div>
-    <div v-if="response">
-      <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
+    <div v-if="data">
+      <slot :img="data.image" :title="data.title" :description="data.description" :url="url">
         <div class="wrapper" :style="{ width: cardWidth }">
           <div class="card-img">
-            <img :src="response.image" />
+            <img :src="data.image" />
           </div>
           <div class="card-info">
             <div class="card-text">
-              <h1>{{ response.title }}</h1>
-              <p>{{ response.description }}</p>
+              <h1>{{ data.title }}</h1>
+              <p>{{ data.description }}</p>
             </div>
             <div class="card-btn">
-              <a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
+              <a v-if="showButton" href="javascript:;" @click="viewMore">View More</a>
             </div>
           </div>
         </div>
@@ -25,86 +25,94 @@
     </div>
   </div>
 </template>
-  
-<script>
-export default {
-  name: "link-prevue",
-  props: {
-    url: {
-      type: String,
-      default: "",
-    },
-    cardWidth: {
-      type: String,
-      default: "400px",
-    },
-    onButtonClick: {
-      type: Function,
-      default: undefined,
-    },
-    showButton: {
-      type: Boolean,
-      default: true,
-    },
-    apiUrl: {
-      type: String,
-      default: "https://link-preview-api.nivaldo.workers.dev/preview",
-    },
-  },
-  watch: {
-    url: function () {
-      this.response = null;
-      this.getLinkPreview();
-    },
-  },
-  created() {
-    this.getLinkPreview();
-  },
-  data: function () {
-    return {
-      response: null,
-      validUrl: false,
-    };
-  },
-  methods: {
-    viewMore: function () {
-      if (this.onButtonClick !== undefined) {
-        this.onButtonClick(this.response);
-      } else {
-        const win = window.open(this.url, "_blank");
-        win.focus();
+
+<script setup lang="ts">
+import { ref, watch, watchEffect } from 'vue';
+
+const props = withDefaults(
+  defineProps<{
+    url?: string
+    cardWidth?: string
+    showButton?: boolean
+    apiUrl?: string
+    onButtonClick?: (response: Response | null) => void
+  }>(),
+  {
+    url: '',
+    cardWidth: '400px',
+    showButton: true,
+    apiUrl: 'https://link-preview-api.nivaldo.workers.dev/preview',
+    onButtonClick: undefined
+  }
+)
+
+type LinkData = {
+  title: string
+  image: string
+  description: string
+}
+
+const data = ref<LinkData | null>(null)
+const response = ref<Response | null>(null)
+const validUrl = ref(false)
+
+function viewMore() {
+  if(props.onButtonClick) {
+    props.onButtonClick(response.value)
+  } else {
+    const win = window.open(props.url, '_blank')
+    win?.focus()
+  }
+}
+
+function isValidUrl(url: string): boolean {
+  const regex =
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
+  validUrl.value = regex.test(url)
+  return validUrl.value
+}
+
+function getLinkPreview() {
+  if (isValidUrl(props.url)) {
+    httpRequest(
+      (r) => {
+        response.value = r
+      },
+      () => {
+        response.value = null
+        validUrl.value = false
       }
-    },
-    isValidUrl: function (url) {
-      const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
-      this.validUrl = regex.test(url);
-      return this.validUrl;
-    },
-    getLinkPreview: function () {
-      if (this.isValidUrl(this.url)) {
-        this.httpRequest(
-          (response) => {
-            this.response = response;
-          },
-          () => {
-            this.response = null;
-            this.validUrl = false;
-          }
-        );
-      }
-    },
-    httpRequest: function (success, error) {
-      fetch(`${this.apiUrl}?url=${this.url}`)
-      .then(response => response.json())
-      .then(linkPreviewData => success(linkPreviewData))
-      .catch(() => error())
-    },
-  },
-};
+    )
+  }
+}
+
+function httpRequest(success: (resp: Response) => void, error: (reason: unknown) => void) {
+  fetch(`${props.apiUrl}?url=${props.url}`)
+    .then((response) => response.json())
+    .then((linkPreviewData) => success(linkPreviewData))
+    .catch(error)
+}
+
+watchEffect(() => {
+  if (response.value)
+    response.value.json().then((json) => {
+      data.value = json as LinkData
+    })
+  else data.value = null
+})
+
+watch(props, (n, o) => {
+  if (n.url !== o.url) {
+    response.value = null
+    getLinkPreview()
+  }
+})
+
+getLinkPreview()
 </script>
-  
+
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600");
+@import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600');
 
 .wrapper {
   overflow: auto;
@@ -145,11 +153,11 @@ img {
   font-size: 24px;
   color: #474747;
   margin: 5px 0 5px 0;
-  font-family: "Hind Siliguri", sans-serif;
+  font-family: 'Hind Siliguri', sans-serif;
 }
 
 .card-text p {
-  font-family: "Hind Siliguri", sans-serif;
+  font-family: 'Hind Siliguri', sans-serif;
   color: #8d8d8d;
   font-size: 15px;
   overflow: hidden;
@@ -165,7 +173,7 @@ img {
 
 .card-btn a {
   border-radius: 2em;
-  font-family: "Hind Siliguri", sans-serif;
+  font-family: 'Hind Siliguri', sans-serif;
   font-size: 14px;
   letter-spacing: 0.1em;
   color: #ffffff;
@@ -207,4 +215,3 @@ img {
   }
 }
 </style>
-  
