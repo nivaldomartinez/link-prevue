@@ -42,10 +42,7 @@ const props = withDefaults(
     cardWidth: '400px',
     showButton: true,
     apiUrl: 'https://link-preview-api.nivaldo.workers.dev/preview',
-    onButtonClick: () => {
-      const win = window.open(props.url, '_blank')
-      win?.focus()
-    }
+    onButtonClick: undefined
   }
 )
 
@@ -60,7 +57,12 @@ const response = ref<Response | null>(null)
 const validUrl = ref(false)
 
 function viewMore() {
-  props.onButtonClick(response.value)
+  if(props.onButtonClick) {
+    props.onButtonClick(response.value)
+  } else {
+    const win = window.open(props.url, '_blank')
+    win?.focus()
+  }
 }
 
 function isValidUrl(url: string): boolean {
