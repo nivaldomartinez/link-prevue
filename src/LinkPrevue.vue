@@ -27,6 +27,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch, watchEffect } from 'vue';
+
 const props = withDefaults(
   defineProps<{
     url?: string
