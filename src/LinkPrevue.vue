@@ -5,7 +5,7 @@
         <div class="spinner"></div>
       </slot>
     </div>
-    <div v-if="response">
+    <div v-if="response && shouldShowCard">
       <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
         <div class="wrapper" :style="{ width: cardWidth }">
           <div class="card-img">
@@ -46,6 +46,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    hideWhenEmpty: {
+      type: Boolean,
+      default: false,
+    },
     apiUrl: {
       type: String,
       default: "https://link-preview-api.nivaldo.workers.dev/preview",
@@ -66,6 +70,14 @@ export default {
       validUrl: false,
     };
   },
+  computed: {
+    shouldShowCard: function () {
+      if (!this.response) return false;
+      if (!this.hideWhenEmpty) return true;
+
+      return this.response.image !== null || this.response.title !== null || this.response.description !== null;
+    },
+  },
   methods: {
     viewMore: function () {
       if (this.onButtonClick !== undefined) {
@@ -84,6 +96,15 @@ export default {
       if (this.isValidUrl(this.url)) {
         this.httpRequest(
           (response) => {
+            if (
+              this.hideEmpty &&
+              (!response.title && !response.description && !response.image)
+            ) {
+              this.response = null;
+              this.validUrl = false;
+              return;
+            }
+
             this.response = response;
           },
           () => {
