@@ -98,6 +98,33 @@ export default {
 }
 ```
 
+## Custom button color
+
+You can customize the button color using the `buttonColor` prop. The prop accepts CSS color names, hex colors (with or without #), RGB/RGBA values, and HSL values.
+
+> HTML
+
+```html
+<div id="app">
+  <!-- Using CSS color name -->
+  <LinkPrevue url="https://vuejs.org/" buttonColor="blue"></LinkPrevue>
+  
+  <!-- Using hex color with # -->
+  <LinkPrevue url="https://vuejs.org/" buttonColor="#ff5733"></LinkPrevue>
+  
+  <!-- Using hex color without # -->
+  <LinkPrevue url="https://vuejs.org/" buttonColor="ff5733"></LinkPrevue>
+  
+  <!-- Using RGB -->
+  <LinkPrevue url="https://vuejs.org/" buttonColor="rgb(255, 87, 51)"></LinkPrevue>
+  
+  <!-- Using RGBA -->
+  <LinkPrevue url="https://vuejs.org/" buttonColor="rgba(255, 87, 51, 0.8)"></LinkPrevue>
+</div>
+```
+
+The button will automatically have a darker hover effect when you use hex colors. For other color formats, the hover effect may vary.
+
 ## Props API
 
 link-prevue have the following props for customize the component
@@ -108,6 +135,7 @@ link-prevue have the following props for customize the component
 **onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
 **cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
+**buttonColor**       | _String_   | no       | _'#ffa9be'_                              | Button background color. Accepts CSS color names (e.g., "red", "blue"), hex colors (e.g., "#ff5733" or "ff5733"), RGB/RGBA values (e.g., "rgb(255, 87, 51)"), and HSL values
 **apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
 
 

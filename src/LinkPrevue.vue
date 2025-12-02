@@ -17,7 +17,7 @@
               <p>{{ response.description }}</p>
             </div>
             <div class="card-btn">
-              <a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
+              <a href="javascript:;" v-if="showButton" @click="viewMore" :style="buttonStyle">View More</a>
             </div>
           </div>
         </div>
@@ -50,6 +50,10 @@ export default {
       type: String,
       default: "https://link-preview-api.nivaldo.workers.dev/preview",
     },
+    buttonColor: {
+      type: String,
+      default: "#ffa9be",
+    },
   },
   watch: {
     url: function () {
@@ -65,6 +69,21 @@ export default {
       response: null,
       validUrl: false,
     };
+  },
+  computed: {
+    shouldShowCard: function () {
+      if (!this.response) return false;
+      if (!this.hideWhenEmpty) return true;
+
+      return this.response.image !== null || this.response.title !== null || this.response.description !== null;
+    },
+    buttonStyle: function () {
+      const color = this.normalizeColor(this.buttonColor);
+      return {
+        backgroundColor: color,
+        '--button-hover-color': this.darkenColor(color),
+      };
+    },
   },
   methods: {
     viewMore: function () {
@@ -98,6 +117,47 @@ export default {
       .then(response => response.json())
       .then(linkPreviewData => success(linkPreviewData))
       .catch(() => error())
+    },
+    normalizeColor: function (color) {
+      if (!color) return "#ffa9be";
+      // If it's already a valid CSS color (starts with #, rgb, rgba, or is a named color), return as is
+      if (color.startsWith("#") || color.startsWith("rgb") || color.startsWith("hsl")) {
+        return color;
+      }
+      // If it's a hex color without #, add it
+      if (/^[0-9A-Fa-f]{6}$/.test(color) || /^[0-9A-Fa-f]{3}$/.test(color)) {
+        return "#" + color;
+      }
+      // Otherwise, assume it's a CSS color name (red, blue, etc.)
+      return color;
+    },
+    darkenColor: function (color) {
+      // Simple darkening function for hex colors
+      if (color.startsWith("#")) {
+        const hex = color.slice(1);
+        const num = parseInt(hex, 16);
+        const r = Math.max(0, ((num >> 16) & 0xff) - 20);
+        const g = Math.max(0, ((num >> 8) & 0xff) - 20);
+        const b = Math.max(0, (num & 0xff) - 20);
+        return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+      }
+      // Handle RGB/RGBA values
+      if (color.startsWith("rgb")) {
+        const match = color.match(/\d+/g);
+        if (match && match.length >= 3) {
+          const r = Math.max(0, parseInt(match[0]) - 20);
+          const g = Math.max(0, parseInt(match[1]) - 20);
+          const b = Math.max(0, parseInt(match[2]) - 20);
+          if (match.length === 4) {
+            // RGBA
+            return `rgba(${r}, ${g}, ${b}, ${match[3]})`;
+          }
+          // RGB
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+      }
+      // For named colors or HSL, return original (browser will handle hover)
+      return color;
     },
   },
 };
@@ -182,7 +242,7 @@ img {
 }
 
 .card-btn a:hover {
-  background-color: #ff8fab;
+  background-color: var(--button-hover-color, #ff8fab) !important;
 }
 
 /* Loader */
