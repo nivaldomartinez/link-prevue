@@ -7,7 +7,10 @@
     </div>
     <div v-if="response">
       <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
-        <div class="wrapper" :style="{ width: cardWidth }">
+        <div
+          class="wrapper"
+          :class="{ 'wrapper--landscape': landscape, 'has-image': !!response.image && landscape }"
+          :style="landscape ? null : { width: cardWidth }">
           <div class="card-img">
             <img :src="response.image" />
           </div>
@@ -45,6 +48,14 @@ export default {
     showButton: {
       type: Boolean,
       default: true,
+    },
+    landscape: {
+      type: Boolean,
+      default: false,
+    },
+    hideWhenEmpty: {
+      type: Boolean,
+      default: false,
     },
     apiUrl: {
       type: String,
@@ -206,5 +217,148 @@ img {
     transform: rotate(360deg);
   }
 }
+
+/* Landscape Layout Styles */
+.wrapper--landscape {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 70rem;
+  max-height: 12rem;
+}
+
+.wrapper--landscape.has-image {
+  flex-direction: row;
+}
+
+.wrapper--landscape .card-img {
+  max-width: 35%;
+  flex-shrink: 0;
+}
+
+.wrapper--landscape .card-img img {
+  height: 100%;
+  max-height: 12rem;
+  object-fit: cover;
+  border-radius: 7px 0 0 7px;
+}
+
+.wrapper--landscape .card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0 7px 7px 0;
+}
+
+.wrapper--landscape .card-text {
+  width: 90%;
+  text-align: left;
+}
+
+.wrapper--landscape .card-text h1 {
+  margin: 0.25rem 0;
+  text-align: left;
+}
+
+.wrapper--landscape .card-text p {
+  margin: 0.25rem 0 0;
+  text-align: left;
+}
+
+.wrapper--landscape .card-btn {
+  margin: 0.5rem 0;
+}
+
+/* Responsive behavior for landscape cards */
+@media (max-width: 768px) {
+  .wrapper--landscape {
+    max-height: 10rem;
+  }
+
+  .wrapper--landscape .card-img {
+    max-width: 30%;
+  }
+
+  .wrapper--landscape .card-info {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .wrapper--landscape .card-text {
+    width: 95%;
+  }
+
+  .wrapper--landscape .card-text h1 {
+    font-size: 1.1rem;
+  }
+
+  .wrapper--landscape .card-text p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Vertical layout for mobile screens (phones) */
+@media (max-width: 640px) {
+  .wrapper--landscape {
+    display: block;
+    flex-direction: column;
+    max-height: none;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .wrapper--landscape .card-img {
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 1;
+  }
+
+  .wrapper--landscape .card-img img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: cover;
+    border-radius: 7px 7px 0 0;
+  }
+
+  .wrapper--landscape .card-info {
+    display: block;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 0 0 7px 7px;
+    flex: none;
+  }
+
+  .wrapper--landscape .card-text {
+    width: 80%;
+    margin: 0 auto;
+    text-align: justify;
+  }
+
+  .wrapper--landscape .card-text h1 {
+    font-size: 24px;
+    margin: 5px 0 5px 0;
+    text-align: center;
+  }
+
+  .wrapper--landscape .card-text p {
+    font-size: 15px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .wrapper--landscape .card-btn {
+    margin: 1em 0 1em 0;
+    text-align: center;
+  }
+
+  .wrapper--landscape .card-btn a {
+    padding: 10px 20px 10px 20px;
+    font-size: 14px;
+  }
+}
+
+
 </style>
   

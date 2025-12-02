@@ -98,6 +98,20 @@ export default {
 }
 ```
 
+## Landscape card layout
+
+For a landscape card layout (less height, more width), use the landscape property. On mobile screens (≤640px), the card will automatically revert to vertical layout for better mobile experience.
+
+> HTML
+
+```html
+<div id="app">
+  <LinkPrevue url="https://vuejs.org/" :landscape="true"></LinkPrevue>
+</div>
+```
+
+This creates a landscape card with a maximum height of 12rem and full width (max 70rem), perfect for knowledge base articles or blog posts. On mobile devices, it automatically switches to a vertical layout with a maximum width of 400px.
+
 ## Props API
 
 link-prevue have the following props for customize the component
@@ -108,6 +122,7 @@ link-prevue have the following props for customize the component
 **onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
 **cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
+**landscape**         | _Boolean_  | no       | _false_                                  | Enable landscape card layout (less height, more width). Automatically reverts to vertical on mobile screens (≤640px)
 **apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
 
 
