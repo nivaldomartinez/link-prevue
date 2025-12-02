@@ -5,7 +5,7 @@
         <div class="spinner"></div>
       </slot>
     </div>
-    <div v-if="response">
+    <div v-if="response && shouldShowCard">
       <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
         <div class="wrapper" :style="{ width: cardWidth }">
           <div class="card-img">
@@ -45,6 +45,10 @@ export default {
     showButton: {
       type: Boolean,
       default: true,
+    },
+    hideWhenEmpty: {
+      type: Boolean,
+      default: false,
     },
     apiUrl: {
       type: String,
@@ -103,6 +107,15 @@ export default {
       if (this.isValidUrl(this.url)) {
         this.httpRequest(
           (response) => {
+            if (
+              this.hideEmpty &&
+              (!response.title && !response.description && !response.image)
+            ) {
+              this.response = null;
+              this.validUrl = false;
+              return;
+            }
+
             this.response = response;
           },
           () => {

@@ -137,6 +137,7 @@ link-prevue have the following props for customize the component
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
 **buttonColor**       | _String_   | no       | _'#ffa9be'_                              | Button background color. Accepts CSS color names (e.g., "red", "blue"), hex colors (e.g., "#ff5733" or "ff5733"), RGB/RGBA values (e.g., "rgb(255, 87, 51)"), and HSL values
 **apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
+**hideWhenEmpty**     | _Boolean_  | no       | _false_                                   | Hide card when image, title, and description are all null in the API response
 
 
 ## API REST
