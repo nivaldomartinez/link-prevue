@@ -124,6 +124,7 @@ link-prevue have the following props for customize the component
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
 **landscape**         | _Boolean_  | no       | _false_                                  | Enable landscape card layout (less height, more width). Automatically reverts to vertical on mobile screens (≤640px)
 **apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
+**hideWhenEmpty**     | _Boolean_  | no       | _false_                                   | Hide card when image, title, and description are all null in the API response
 
 
 ## API REST

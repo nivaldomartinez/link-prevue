@@ -5,7 +5,7 @@
         <div class="spinner"></div>
       </slot>
     </div>
-    <div v-if="response">
+    <div v-if="response && shouldShowCard">
       <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
         <div
           class="wrapper"
@@ -77,6 +77,14 @@ export default {
       validUrl: false,
     };
   },
+  computed: {
+    shouldShowCard: function () {
+      if (!this.response) return false;
+      if (!this.hideWhenEmpty) return true;
+
+      return this.response.image !== null || this.response.title !== null || this.response.description !== null;
+    },
+  },
   methods: {
     viewMore: function () {
       if (this.onButtonClick !== undefined) {
@@ -95,6 +103,15 @@ export default {
       if (this.isValidUrl(this.url)) {
         this.httpRequest(
           (response) => {
+            if (
+              this.hideEmpty &&
+              (!response.title && !response.description && !response.image)
+            ) {
+              this.response = null;
+              this.validUrl = false;
+              return;
+            }
+
             this.response = response;
           },
           () => {
