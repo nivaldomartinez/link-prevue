@@ -68,6 +68,21 @@ To use a custom loading indicator, use the loading slot.
 </div>
 ```
 
+## Show button while loading
+
+When loading data for multiple links takes time, you can show a button during the loading state that allows users to visit the link immediately. The button only requires the URL which is already provided as a component property.
+
+```html
+<div id="app">
+  <LinkPrevue url="https://vuejs.org/" :showButtonWhileLoading="true"></LinkPrevue>
+</div>
+```
+
+This is particularly useful when:
+- Loading multiple link previews simultaneously
+- Network requests are slow
+- You want to provide users with immediate access to the link while preview data loads
+
 ## Custom button handler
 
 For custom button handler use the onButtonClick property, like.
@@ -102,13 +117,15 @@ export default {
 
 link-prevue have the following props for customize the component
 
- Prop                 | Type       | Required | Default Value                            | Description
---------------------- | ---------- | -------- | ---------------------------------------- | -----------
-**url**               | _String_   | yes      | _undefined_                              | Site url for generate link preview
-**onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
-**cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
-**showButton**        | _Boolean_  | no       | _true_                                   | Render card button
-**apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
+ Prop                     | Type       | Required | Default Value                            | Description
+------------------------- | ---------- | -------- | ---------------------------------------- | -----------
+**url**                   | _String_   | yes      | _undefined_                              | Site url for generate link preview
+**onButtonClick**         | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
+**cardWidth**             | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
+**showButton**            | _Boolean_  | no       | _true_                                   | Render card button
+**showButtonWhileLoading** | _Boolean_  | no       | _false_                                  | Show a button during loading state that opens the URL. Useful when loading multiple links takes time.
+**landscape**             | _Boolean_  | no       | _false_                                  | Enable landscape card layout (less height, more width). Automatically reverts to vertical on mobile screens (≤640px)
+**apiUrl**                | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
 **hideWhenEmpty**     | _Boolean_  | no       | _false_                                   | Hide card when image, title, and description are all null in the API response
 
 
