@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="100">
-</p>
-
 ## link-prevue
 
 > A flexible component for generating a link preview
@@ -115,6 +111,26 @@ link-prevue have the following props for customize the component
 ## API REST
 
 link-prevue uses an API REST for retrieve link data if you want to use your own API REST check [this](https://github.com/nivaldomartinez/link-prevue-api-node).
+
+## Troubleshooting
+
+### 429 Too Many Requests
+If you are seeing `429 Too Many Requests` errors, this means the API used by **link-prevue** has exceeded its free usage limits.
+
+This library relies on a Cloudflare Worker running on the **free plan**. Because the API is **public and shared across all users**, the free quota can be exhausted. When this happens, Cloudflare automaticly throttles requests and returns `429` responses.
+
+#### Recomended solution: use a custom API
+To avoid rate limits and ensure consistet availability, we strongly recommend use your **own API instance** intead of the shared public one.
+You can deploy your own Cloudflare Worker (or compatible backend) and configure **link-prevue** to point to it using `api-url` prop. This gives you:
+
+- A dedicated API for your project or instance
+- Full control over limits and usage
+- Better reliability in production environments
+
+**Follow this [step-by-step tutorial](https://nivaldomartinez.com/posts/how-to-use-link-prevue-with-external-api/) to set up and use a custom API.**
+
+Once configured, update link-prevue’s API endpoint to your custom URL, and the 429 errors should no longer occur.
+
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](https://opensource.org/licenses/MIT).
@@ -124,3 +140,7 @@ This code is distributed under the terms and conditions of the [MIT license](htt
 |-|-|
 | v2.x | v3.x |
 | v1.x | v2.x |
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nivaldomartinez/link-prevue/master/link-prevue.png" alt="Link Prevue" width="100">
+</p>
