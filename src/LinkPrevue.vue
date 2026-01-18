@@ -2,7 +2,12 @@
   <div>
     <div id="loader-container" v-if="!response && validUrl" :style="{ width: cardWidth }">
       <slot name="loading">
-        <div class="spinner"></div>
+        <div class="loading-content">
+          <div class="spinner"></div>
+          <div class="loading-btn" v-if="showButtonWhileLoading">
+            <a href="javascript:;" @click="viewMore">Visit Link</a>
+          </div>
+        </div>
       </slot>
     </div>
     <div v-if="response && shouldShowCard">
@@ -45,6 +50,10 @@ export default {
     showButton: {
       type: Boolean,
       default: true,
+    },
+    showButtonWhileLoading: {
+      type: Boolean,
+      default: false,
     },
     hideWhenEmpty: {
       type: Boolean,
@@ -207,15 +216,51 @@ img {
 }
 
 /* Loader */
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em 0;
+  min-height: 200px;
+}
+
 .spinner {
-  margin-top: 40%;
-  margin-left: 45%;
   height: 28px;
   width: 28px;
   animation: rotate 0.8s infinite linear;
   border: 5px solid #868686;
   border-right-color: transparent;
   border-radius: 50%;
+  margin-bottom: 1.5em;
+}
+
+.loading-btn {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.loading-btn a {
+  border-radius: 2em;
+  font-family: "Hind Siliguri", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  background-color: #ffa9be;
+  padding: 10px 20px 10px 20px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none !important;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.loading-btn a:hover {
+  background-color: #ff8fab;
 }
 
 @keyframes rotate {
