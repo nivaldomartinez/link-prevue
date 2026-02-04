@@ -4,6 +4,9 @@
       <slot name="loading">
         <div class="spinner"></div>
       </slot>
+      <div class="card-btn" v-if="showButtonWhileLoading">
+        <a href="javascript:;" @click="viewMore">View More</a>
+      </div>
     </div>
     <div v-if="response && shouldShowCard">
       <slot :img="response.image" :title="response.title" :description="response.description" :url="url">
@@ -46,13 +49,17 @@ export default {
       type: Boolean,
       default: true,
     },
+    showButtonWhileLoading: {
+      type: Boolean,
+      default: false,
+    },
     hideWhenEmpty: {
       type: Boolean,
       default: false,
     },
     apiUrl: {
       type: String,
-      default: "https://link-preview-api.nivaldo.workers.dev/preview",
+      default: "https://link-preview.nivaldomartinez.com/preview",
     },
   },
   watch: {
@@ -207,6 +214,12 @@ img {
 }
 
 /* Loader */
+#loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .spinner {
   margin-top: 40%;
   margin-left: 45%;

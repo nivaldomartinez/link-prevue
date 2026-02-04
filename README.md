@@ -104,6 +104,7 @@ link-prevue have the following props for customize the component
 **onButtonClick**     | _Function_ | no       | _undefined_                              | Function for a custom button handler, params => `prevue`
 **cardWidth**         | _String_   | no       | _'400px'_                                | Card width, accept `px` and `%`
 **showButton**        | _Boolean_  | no       | _true_                                   | Render card button
+**showButtonWhileLoading** | _Boolean_  | no       | _false_                                  | Show a button during loading state that opens the URL. Useful when loading multiple links takes time.
 **apiUrl**            | _String_   | no       | _https://link-preview-api.nivaldo.workers.dev/preview_ | Custom API url, link-preview add a query param called ?url= [check this](https://github.com/nivaldomartinez/link-prevue-api-node)
 **hideWhenEmpty**     | _Boolean_  | no       | _false_                                   | Hide card when image, title, and description are all null in the API response
 
