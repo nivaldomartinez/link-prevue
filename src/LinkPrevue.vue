@@ -59,7 +59,7 @@ export default {
     },
     apiUrl: {
       type: String,
-      default: "https://link-preview.nivaldomartinez.com/preview",
+      default: "https://link-preview.nivaldo.dev/preview",
     },
   },
   watch: {
